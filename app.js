@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const notFound = require('./middlewares/notFound')
-const errorHeandler = require('./middlewares/errorHandler') 
+const errorHeandler = require('./middlewares/errorsHandler') 
 const moviesRouter = require('./routers/moviesRouter')
 
 app.use(express.static('public'))
