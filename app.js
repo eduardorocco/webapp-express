@@ -4,6 +4,9 @@ const port = process.env.PORT
 const notFound = require('./middlewares/notFound')
 const errorHeandler = require('./middlewares/errorsHandler') 
 const moviesRouter = require('./routers/moviesRouter')
+const cors = require('cors')
+
+app.use(cors())
 
 app.use(express.static('public'))
 
