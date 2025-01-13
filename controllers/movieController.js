@@ -52,5 +52,31 @@ function show(req, res) {
     })
 }
 
+function storeReview(req, res) {
 
-module.exports = { index, show }
+    const movie_id = req.params.id
+    const { name, vote, text } = req.body
+    const intVote = parseInt(vote)
+
+    if (
+        !name ||
+        !vote ||
+        isNaN(intVote) ||
+        intVote < 0 ||
+        intVote > 5 ||
+        name?.length > 255 ||
+        typeof text !== 'string'
+    ){
+        return res.status(400).json({ message: 'Invalid data' })
+    }
+
+    const sql = `INSERT INTO reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?)`
+
+    connection.query(sql, [movie_id, name, intVote, text], (err, results) => {
+        if (err) return res.status(500).json({ message: err.message })
+        res.status(201).json({ message: 'Review created' })
+    })
+}
+
+
+module.exports = { index, show, storeReview }
